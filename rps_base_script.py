@@ -2,6 +2,7 @@ from Autodesk.Revit.DB import Transaction, FilteredElementCollector
 
 
 uiapp = __revit__
+app = uiapp.Application
 uidoc = uiapp.ActiveUIDocument
 doc = uidoc.Document
 
@@ -18,3 +19,4 @@ except Exception as e:
 	print("Exception:", e)
 
 	t.RollBack()
+
