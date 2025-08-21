@@ -1,20 +1,17 @@
+import sys
+sys.path.append("\path\to\project\dir")  # enables modules to get imported within
+
+from converter import Converter  # find at the same repository
+
 from Autodesk.Revit.DB import *
 
 uiapp = __revit__
 app = uiapp.Application
 uidoc = uiapp.ActiveUIDocument
 doc = uidoc.Document
-
-
-class Converter:
-	def ft_to_mm(input):
-		return input * 304.8
-		
-	def mm_to_ft(input):
-		return input * 0.00328084
+view = uidoc.ActiveView
 
 selection = [doc.GetElement(id) for id in uidoc.Selection.GetElementIds()]  # Manual scene selections by Id
-collector = FilteredElementCollector(doc)  # Must get defined at every attempt
 
 t = Transaction(doc, "TRANSACTION_NAME")
 
@@ -25,3 +22,4 @@ try:
 except Exception as e:
 	print("Exception: ", e)
 	t.RollBack()
+
