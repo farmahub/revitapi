@@ -1,9 +1,10 @@
 import sys
-sys.path.append("\path\to\project\dir")  # enables modules to get imported within
+sys.path.append("PATH\TO\PROJECT\DIRECTORY")
 
-from converter import Converter  # find at the same repository
+from converter import Converter  # converter module existed inside this sam repository
 
 from Autodesk.Revit.DB import *
+from Autodesk.Revit.DB import FilteredElementCollector as fec
 
 uiapp = __revit__
 app = uiapp.Application
@@ -11,15 +12,14 @@ uidoc = uiapp.ActiveUIDocument
 doc = uidoc.Document
 view = uidoc.ActiveView
 
-selection = [doc.GetElement(id) for id in uidoc.Selection.GetElementIds()]  # Manual scene selections by Id
+selection = [doc.GetElement(sel) for sel in uidoc.Selection.GetElementIds()]
 
 t = Transaction(doc, "TRANSACTION_NAME")
 
 try:
 	t.Start()
-	# Transactions here ...
+	# TRANSACTION_HERE
 	t.Commit()
 except Exception as e:
 	print("Exception: ", e)
 	t.RollBack()
-
